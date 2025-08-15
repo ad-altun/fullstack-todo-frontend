@@ -1,16 +1,17 @@
+/* listName: string  createdAt: string, */
+
 export interface TaskApiResponse {
     id: string,
     title: string,
     note: string,
-    completed: boolean,
-    listId: string,
-    createdAt: string,
+    status: TaskStatus,
 }
 
 export type CreateTaskRequest = {
     title: string,
     note: string,
-    listId: string,
+    status: TaskStatus,
+    // listName: string,
 }
 
 export type List = {
@@ -55,3 +56,4 @@ export type TaskListProps = {
 }
 
 export type TaskStatus = "OPEN" | "IN_PROGRESS" | "DONE";
+
