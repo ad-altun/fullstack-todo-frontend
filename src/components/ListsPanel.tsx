@@ -15,7 +15,7 @@ export default function ListsPanel() {
             {/*    ))}*/}
             {/*</div>*/}
             <h4>My Tasks</h4>
-            <div className='sidebar-create-list'>
+            <div className='sidebar-create'>
                 <MdOutlineAdd />
                 <button type="button">Create new list</button>
             </div>
