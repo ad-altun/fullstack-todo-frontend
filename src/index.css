@@ -57,7 +57,7 @@ html {
 
 .app-content {
     display: flex;
-    align-items: baseline;
+    flex-wrap: wrap;
 }
 
 .header {
@@ -81,11 +81,63 @@ html {
 
 .sidebar {
     width: 17.5rem;
+    margin-right: 2rem;
 }
 
 .task-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     background-color: #ccc;
     width: 100%;
-    height: calc(100dvh - 6rem);
-    padding: 2rem;
+    /*height: calc(100dvh - 6rem);*/
+    padding: 0 1.5rem;
 }
+
+.tasklist-app {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-title, .task-note {
+    margin: 0;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;;
+    min-width: 30rem;
+    /*border: 1px solid;*/
+    padding: .25rem;
+}
+
+.task-item-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.task-item-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+}
+
+.edit-button, .delete-button {
+    margin: 0;
+    padding: .5rem;
+}
+
+
+
+
+
+
+
