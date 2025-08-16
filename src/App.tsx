@@ -1,48 +1,54 @@
 import TaskLists from "./components/TaskLists.tsx";
 import SidebarNav from "./components/SidebarNav.tsx";
 import Header from "./components/Header.tsx";
-import {useEffect, useState} from "react";
-import {fetchTasks} from "./service/api.ts";
-import type { TaskApiResponse } from "./types/taskTypes.ts";
+import {useCallback, useEffect, useState} from "react";
+import { fetchTasks} from "./service/api.ts";
+import type {CreateTaskRequest, TaskApiResponse} from "./types/taskTypes.ts";
+import CreateTask from "./components/CreateTask.tsx";
+
 
 export default function App() {
     const [tasks, setTasks] = useState<TaskApiResponse[]>([]);
 
+    const fetching = useCallback(async () => {
+        fetchTasks()
+            .then(setTasks)
+            .catch(e => console.log(e));
+    }, [])
+
     useEffect(() => {
-      fetchTasks()
-          .then(setTasks)
-          .catch(e => console.log(e));
-    },[]);
+        fetching()
+            .then();
+    },[fetching]);
 
-    /*
-     useEffect(() => {
-        if (tasks.length > 0) {
-            setTaskTitles(tasks.map((task) => task.title));
+    const handleTaskCreate = (newTask: CreateTaskRequest) => {
+        if (newTask) {
+            fetching()
+                .then();
         }
-    }, [tasks]);
-     */
-
-    // const [taskTitles, setTaskTitles] = useState<string[]>([])
+    };
 
   return (
     <>
         <div className='app-main'>
             <Header />
             <div className='app-content'>
-                {/*<SidebarNav title={tasks.map(task => task.title)}  />*/}
                 <SidebarNav />
                 <div>
-                    {tasks.map((task) => (
-                        <div key={task.id} className='tasklist-app' >
-                            <TaskLists
-                                title={task.title}
-                                note={task.note}
-                                status={task.status} />
-                        </div>
-                    ))}
+                    <CreateTask onTaskCreate={handleTaskCreate} />
+                    <div>
+                        {tasks.map((task: TaskApiResponse) => (
+                            <div key={task.id} className='tasklist-app' >
+                                <TaskLists
+                                    title={task.title}
+                                    // note={task.note}
+                                    status={task.status} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
     </>
-  )
-}
+  );
+};
