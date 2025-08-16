@@ -1,8 +1,17 @@
+import ListsPanel from "./ListsPanel.tsx";
 
-export default function SidebarNav() {
+// interface SidebarNavProps {
+//     title: string[];
+// }
+
+// export default function SidebarNav( {title}: SidebarNavProps ) {
+export default function SidebarNav( ) {
     return (
-        <div>
-
-        </div>
+        <>
+          <nav className='sidebar'>
+              {/*<ListsPanel title={title} />*/}
+              <ListsPanel />
+          </nav>
+        </>
     )
 }
