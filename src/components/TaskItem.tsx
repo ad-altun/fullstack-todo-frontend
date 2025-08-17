@@ -1,14 +1,9 @@
-import type {TaskStatus} from "../types/taskTypes.ts";
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
-import PlaylistRemoveRoundedIcon from '@mui/icons-material/PlaylistRemoveRounded';
+import type { TaskProps } from "../types/taskTypes.ts";
 
-type ListItemProps = {
-    title: string,
-    // note: string,
-    status: TaskStatus
-}
 
-export default function TaskItem({ title }: ListItemProps) {
+
+export default function TaskItem({ title, note, status }: TaskProps) {
+
     // console.log({status})
     return (
         <div className='tasks'>
@@ -16,14 +11,11 @@ export default function TaskItem({ title }: ListItemProps) {
                 {/*<input type="checkbox" name="checkbox" id="checkbox" />*/}
                 <div className='task-item'>
                     <p className='task-title'>{title}</p>
-                    {/*<p className='task-note'>{note}</p>*/}
-                    {/*<p className='task-text'>{status}</p>*/}
+                    <p className='task-note'>{note}</p>
+                    <p className='task-text'>{status}</p>
                 </div>
             </div>
-            <div className='task-item-buttons'>
-                <EditNoteRoundedIcon />
-                <PlaylistRemoveRoundedIcon />
-            </div>
+
         </div>
     )
 }
