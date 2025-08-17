@@ -9,9 +9,15 @@ const fetchTasks = async () => {
 const createTask = async (data: CreateTaskRequest) => {
     return await axios.post<TaskApiResponse>("/api/todo", data)
         .then(res => res.data);
+};
+
+const updateTask = async (data: TaskApiResponse) => {
+    return await axios.put(`/api/todo/${data.id}`, data)
+        .then(res => res.data)
 }
 
 export {
     fetchTasks,
-    createTask
+    createTask,
+    updateTask
 };

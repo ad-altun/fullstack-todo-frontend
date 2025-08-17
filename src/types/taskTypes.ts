@@ -3,16 +3,22 @@
 export interface TaskApiResponse {
     id: string,
     title: string,
-    // note: string,
+    note: string,
     status: TaskStatus,
 }
 
 export type CreateTaskRequest = {
     id: string,
     title: string,
-    // note: string,
+    note: string,
     status: TaskStatus,
     // listName: string,
+}
+
+export type TaskProps = {
+    title: string,
+    note: string,
+    status: TaskStatus
 }
 
 export type List = {

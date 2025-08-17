@@ -6,47 +6,51 @@ type CreateTaskProps = {
     onTaskCreate: (task: CreateTaskRequest) => void
 }
 
-export default function CreateTask({ onTaskCreate }: CreateTaskProps) {
+export default function CreateTask({onTaskCreate}: CreateTaskProps) {
     const [addTask, setAddTask] = useState<boolean>(false);
-    const [taskValue, setTaskValue] = useState<CreateTaskRequest>({id:"", title:"", status:"OPEN"})
+    const [taskValue, setTaskValue] = useState<CreateTaskRequest>({
+        id: "", title: "", note: "", status: "OPEN"
+    })
 
     const handleDoubleClick = () => setAddTask(true);
 
-    const handleChange = (value: string) => {
-        setTaskValue({
-            id: "",
-            title:value,
-            status: "OPEN"});
+    const handleChange = (field: keyof CreateTaskRequest, value: string) => {
+        setTaskValue((prevState) => ({
+            ...prevState,
+            [field]: value
+        }));
     }
 
     const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (taskValue.title.trim()) {
-           try {
-               onTaskCreate(taskValue);
-               createTask(taskValue)
-                   .catch(e => console.log(e));
-               setTaskValue({id:"", title: "", status: "OPEN"});
-               setAddTask(false)
-           } catch (e) {
-               console.error('Error:', e)
-           }
-        }
+        onTaskCreate(taskValue);
+        createTask(taskValue)
+            .catch((e) => console.log("Error while creating data.", e));
+        setTaskValue({id:"", title:"", note:"", status:"OPEN"})
+        setAddTask(false)
     }
 
     return (
         <>
             <div onDoubleClick={handleDoubleClick} className="add-task-form">
-                { !addTask ? (
-                    <p>Add a Task</p> ) :
+                {!addTask ? (
+                        <p>Add a Task</p>) :
                     <form onSubmit={onFormSubmit}>
                         <input type="text" value={taskValue.title}
-                               onChange={(e) => handleChange(e.target.value)}
-                                placeholder="Enter task..."
-                                autoFocus
+                               onChange={(e) =>
+                                   handleChange("title" , e.target.value)}
+                               placeholder="Enter task..."
+                               autoFocus
                         />
-                        <input type="submit" value="Add Task" />
+                        <input type="text" value={taskValue.note}
+                               onChange={(e) =>
+                                   handleChange("note" , e.target.value)}
+                               placeholder="Enter note..."
+                        />
+                        <input type="submit" value="Add Task"/>
+                        <button type="button" value="Cancel"
+                                onClick={() => onTaskCreate(taskValue)}>Cancel</button>
                     </form>
                 }
             </div>
